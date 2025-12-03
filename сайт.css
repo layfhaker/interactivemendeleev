@@ -1,0 +1,402 @@
+/* =========================================
+   1. ОСНОВНЫЕ НАСТРОЙКИ СТРАНИЦЫ
+   ========================================= */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(18, 50px);
+    grid-template-rows: repeat(7, 50px);
+    gap: 2px;
+    position: relative;
+}
+
+/* =========================================
+   2. СТИЛИ ЭЛЕМЕНТОВ ТАБЛИЦЫ
+   ========================================= */
+.element {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    position: relative;
+    user-select: none;
+    transition: background-color 0.2s;
+}
+
+.element:hover {
+    background-color: #e0e0e0;
+    z-index: 2;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.atomic-number {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    font-size: 8px;
+}
+
+.symbol {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.name {
+    font-size: 8px;
+}
+
+/* --- ЦВЕТА КАТЕГОРИЙ --- */
+.alkali-metal { background-color: #ff9999; }
+.alkaline-earth-metal { background-color: #ffcc99; }
+.transition-metal { background-color: #ffff99; }
+.post-transition-metal { background-color: #ccff99; }
+.metalloid { background-color: #99ffcc; }
+.nonmetal { background-color: #99ffff; }
+.halogen { background-color: #99ccff; }
+.noble-gas { background-color: #cc99ff; }
+.lanthanide { background-color: #ff99cc; }
+.actinide { background-color: #ff99ff; }
+.unknown { background-color: #cccccc; }
+
+/* --- СЕТКА (КООРДИНАТЫ) --- */
+#H { grid-row: 1; grid-column: 1; }
+#He { grid-row: 1; grid-column: 18; }
+#Li { grid-row: 2; grid-column: 1; }
+#Be { grid-row: 2; grid-column: 2; }
+#B { grid-row: 2; grid-column: 13; }
+#C { grid-row: 2; grid-column: 14; }
+#N { grid-row: 2; grid-column: 15; }
+#O { grid-row: 2; grid-column: 16; }
+#F { grid-row: 2; grid-column: 17; }
+#Ne { grid-row: 2; grid-column: 18; }
+#Na { grid-row: 3; grid-column: 1; }
+#Mg { grid-row: 3; grid-column: 2; }
+#Al { grid-row: 3; grid-column: 13; }
+#Si { grid-row: 3; grid-column: 14; }
+#P { grid-row: 3; grid-column: 15; }
+#S { grid-row: 3; grid-column: 16; }
+#Cl { grid-row: 3; grid-column: 17; }
+#Ar { grid-row: 3; grid-column: 18; }
+#K { grid-row: 4; grid-column: 1; }
+#Ca { grid-row: 4; grid-column: 2; }
+#Sc { grid-row: 4; grid-column: 3; }
+#Ti { grid-row: 4; grid-column: 4; }
+#V { grid-row: 4; grid-column: 5; }
+#Cr { grid-row: 4; grid-column: 6; }
+#Mn { grid-row: 4; grid-column: 7; }
+#Fe { grid-row: 4; grid-column: 8; }
+#Co { grid-row: 4; grid-column: 9; }
+#Ni { grid-row: 4; grid-column: 10; }
+#Cu { grid-row: 4; grid-column: 11; }
+#Zn { grid-row: 4; grid-column: 12; }
+#Ga { grid-row: 4; grid-column: 13; }
+#Ge { grid-row: 4; grid-column: 14; }
+#As { grid-row: 4; grid-column: 15; }
+#Se { grid-row: 4; grid-column: 16; }
+#Br { grid-row: 4; grid-column: 17; }
+#Kr { grid-row: 4; grid-column: 18; }
+#Rb { grid-row: 5; grid-column: 1; }
+#Sr { grid-row: 5; grid-column: 2; }
+#Y { grid-row: 5; grid-column: 3; }
+#Zr { grid-row: 5; grid-column: 4; }
+#Nb { grid-row: 5; grid-column: 5; }
+#Mo { grid-row: 5; grid-column: 6; }
+#Tc { grid-row: 5; grid-column: 7; }
+#Ru { grid-row: 5; grid-column: 8; }
+#Rh { grid-row: 5; grid-column: 9; }
+#Pd { grid-row: 5; grid-column: 10; }
+#Ag { grid-row: 5; grid-column: 11; }
+#Cd { grid-row: 5; grid-column: 12; }
+#In { grid-row: 5; grid-column: 13; }
+#Sn { grid-row: 5; grid-column: 14; }
+#Sb { grid-row: 5; grid-column: 15; }
+#Te { grid-row: 5; grid-column: 16; }
+#I { grid-row: 5; grid-column: 17; }
+#Xe { grid-row: 5; grid-column: 18; }
+#Cs { grid-row: 6; grid-column: 1; }
+#Ba { grid-row: 6; grid-column: 2; }
+#La { grid-row: 6; grid-column: 3; }
+#Hf { grid-row: 6; grid-column: 4; }
+#Ta { grid-row: 6; grid-column: 5; }
+#W { grid-row: 6; grid-column: 6; }
+#Re { grid-row: 6; grid-column: 7; }
+#Os { grid-row: 6; grid-column: 8; }
+#Ir { grid-row: 6; grid-column: 9; }
+#Pt { grid-row: 6; grid-column: 10; }
+#Au { grid-row: 6; grid-column: 11; }
+#Hg { grid-row: 6; grid-column: 12; }
+#Tl { grid-row: 6; grid-column: 13; }
+#Pb { grid-row: 6; grid-column: 14; }
+#Bi { grid-row: 6; grid-column: 15; }
+#Po { grid-row: 6; grid-column: 16; }
+#At { grid-row: 6; grid-column: 17; }
+#Rn { grid-row: 6; grid-column: 18; }
+#Fr { grid-row: 7; grid-column: 1; }
+#Ra { grid-row: 7; grid-column: 2; }
+#Ac { grid-row: 7; grid-column: 3; }
+#Rf { grid-row: 7; grid-column: 4; }
+#Db { grid-row: 7; grid-column: 5; }
+#Sg { grid-row: 7; grid-column: 6; }
+#Bh { grid-row: 7; grid-column: 7; }
+#Hs { grid-row: 7; grid-column: 8; }
+#Mt { grid-row: 7; grid-column: 9; }
+#Ds { grid-row: 7; grid-column: 10; }
+#Rg { grid-row: 7; grid-column: 11; }
+#Cn { grid-row: 7; grid-column: 12; }
+#Nh { grid-row: 7; grid-column: 13; }
+#Fl { grid-row: 7; grid-column: 14; }
+#Mc { grid-row: 7; grid-column: 15; }
+#Lv { grid-row: 7; grid-column: 16; }
+#Ts { grid-row: 7; grid-column: 17; }
+#Og { grid-row: 7; grid-column: 18; }
+
+.lanthanides, .actinides {
+    display: grid;
+    grid-template-columns: repeat(15, 50px);
+    gap: 2px;
+    margin-top: 20px;
+    max-width: 934px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* =========================================
+   3. МОДАЛЬНОЕ ОКНО И ИНТЕРФЕЙС
+   ========================================= */
+
+/* Затемненный фон */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s ease-in;
+
+    /* Центруем само окно */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Само белое окно */
+.modal-content {
+    background-color: #fefefe;
+
+    /* --- АВТОМАТИЧЕСКАЯ ШИРИНА --- */
+    width: fit-content;    /* Окно облегает контент */
+    min-width: 600px;      /* Но не меньше 600px */
+    max-width: 95vw;       /* И не шире экрана */
+
+    height: auto;
+    max-height: 90vh;      /* Не выше 90% экрана */
+
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Крестик закрытия */
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    color: #999;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+    line-height: 1;
+}
+.close:hover { color: #333; }
+
+/* Заголовок (Название элемента) */
+#element-title {
+    text-align: center;
+    margin: 10px 0 20px 0;
+    font-size: 28px;
+    color: #333;
+    flex-shrink: 0;
+}
+
+/* Табы аллотропов (кнопки) */
+#allotrope-tabs-placeholder {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+.allotrope-tab {
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: #f7f7f7;
+    cursor: pointer;
+    font-weight: 600;
+    color: #555;
+    transition: all 0.2s;
+}
+
+.allotrope-tab:hover {
+    background: #eaeaea;
+}
+
+.allotrope-tab.active {
+    background: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+    box-shadow: 0 2px 5px rgba(76, 175, 80, 0.3);
+}
+
+/* =========================================
+   4. СЕКЦИИ С ИНФОРМАЦИЕЙ
+   ========================================= */
+
+/* Контейнер для скролла */
+#element-info {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+
+    /* Центруем группу секций внутри окна */
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+/* Группа карточек */
+.groups-container {
+    display: flex;
+    gap: 15px;
+    align-items: stretch; /* Растягиваем все карточки на одну высоту */
+    height: 100%;
+}
+
+/* Карточка (секция) */
+.info-group {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0; /* Запрещаем сжиматься */
+
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 5px solid #ddd;
+
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+}
+
+/* Цвета левых границ */
+.info-group.basic { border-left-color: #2196F3; background: #E3F2FD; }
+.info-group.physical { border-left-color: #4CAF50; background: #E8F5E8; }
+.info-group.history { border-left-color: #FF9800; background: #FFF3E0; }
+.info-group.facts { border-left-color: #9C27B0; background: #F3E5F5; }
+
+/* Состояние: СВЕРНУТО */
+.info-group.collapsed {
+    width: 45px;
+    min-width: 45px;
+    cursor: pointer;
+}
+
+/* --- ЗАГОЛОВОК СЕКЦИИ (Вертикальная полоска) --- */
+.group-title {
+    writing-mode: vertical-lr; /* Вертикальный текст */
+    text-orientation: upright; /* Буквы прямо */
+
+    width: 45px; /* Ширина полоски */
+    margin: 0;
+    color: #555;
+    font-weight: bold;
+    font-size: 13px;
+    user-select: none;
+    cursor: pointer;
+
+    /* Flex для управления положением текста */
+    display: flex;
+    align-items: center; /* Центр по горизонтали (ширине полоски) */
+
+    /* --- СОСТОЯНИЕ: РАЗВЕРНУТО (Текст наверху) --- */
+    justify-content: flex-start;
+    padding-top: 25px;
+
+    transition: background 0.2s;
+}
+
+.group-title:hover { background-color: rgba(0,0,0,0.05); }
+
+/* --- СОСТОЯНИЕ: СВЕРНУТО (Текст по центру) --- */
+.info-group.collapsed .group-title {
+    justify-content: center;
+    padding-top: 0;
+    width: 100%;
+}
+
+/* --- КОНТЕНТ СЕКЦИИ --- */
+.group-content {
+    width: 250px;
+    padding: 15px;
+    opacity: 1;
+    overflow-y: auto; /* Скролл текста, если не влезает */
+
+    transition: width 0.4s ease, padding 0.4s ease, opacity 0.3s ease;
+}
+
+/* Контент скрыт */
+.group-content.collapsed {
+    width: 0 !important;
+    padding: 0 !important;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.info-group p {
+    margin: 8px 0;
+    line-height: 1.4;
+    font-size: 14px;
+}
+
+/* Убираем лишние зеленые полоски внутри текста */
+.allo-specific {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Анимация появления модалки */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Настройка скроллбара */
+#element-info::-webkit-scrollbar { height: 8px; }
+#element-info::-webkit-scrollbar-track { background: transparent; }
+#element-info::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+#element-info::-webkit-scrollbar-thumb:hover { background: #999; }
