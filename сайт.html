@@ -180,15 +180,17 @@
 
             .modal-content {
                 background-color: #fefefe;
-                /* Убираем margin: 5% auto, используем размеры */
-                width: 95%;
-                max-width: 1200px;
-                height: 90vh; /* Фиксированная высота: 90% от экрана */
-                max-height: 800px;
+                /* Автоматическая ширина под контент */
+                width: fit-content;
+                min-width: 600px;
+                max-width: 95vw;
 
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                height: auto; /* Автоматическая высота */
+                max-height: 90vh;
+
+                padding: 20px 30px;
+                border-radius: 12px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.4);
 
                 /* Важно: Flex Column для структуры окна */
                 display: flex;
@@ -196,49 +198,45 @@
                 overflow: hidden; /* Скрываем скролл самого окна */
             }
 
+            /* Заголовок (Название элемента) */
             #element-title {
                 text-align: center;
+                margin: 10px 0 20px 0;
                 font-size: 28px;
-                margin: 0 0 15px 0;
                 color: #333;
-                flex-shrink: 0; /* Заголовок не сжимается */
+                flex-shrink: 0;
             }
 
-            /* Контейнер для Табов */
+            /* Табы аллотропов (кнопки) */
             #allotrope-tabs-placeholder {
                 display: flex;
                 justify-content: center;
-                gap: 8px;
-                margin-bottom: 25px; /* Большой отступ снизу */
+                gap: 10px;
+                margin-bottom: 20px;
+                flex-shrink: 0;
                 flex-wrap: wrap;
-                flex-shrink: 0; /* Табы не сжимаются */
-                min-height: 40px;
             }
 
             .allotrope-tab {
-                border: none;
-                outline: none;
+                border: 1px solid #ddd;
                 padding: 8px 16px;
                 border-radius: 20px;
-                background-color: #f0f0f0;
-                color: #555;
-                font-size: 14px;
-                font-weight: 600;
+                background: #f7f7f7;
                 cursor: pointer;
-                transition: all 0.2s ease;
-                user-select: none;
-                border: 1px solid #ddd;
+                font-weight: 600;
+                color: #555;
+                transition: all 0.2s;
             }
 
             .allotrope-tab:hover {
-                background-color: #e0e0e0;
-                transform: translateY(-1px);
+                background: #eaeaea;
             }
 
             .allotrope-tab.active {
-                background-color: #4CAF50;
+                background: #4CAF50;
                 color: white;
                 border-color: #4CAF50;
+                box-shadow: 0 2px 5px rgba(76, 175, 80, 0.3);
             }
 
             /* Контейнер для контента элемента (скроллируемая область) */
@@ -246,31 +244,31 @@
                 flex-grow: 1; /* Занимает все оставшееся место */
                 overflow-x: auto; /* Горизонтальный скролл */
                 overflow-y: hidden; /* Вертикальный скролл скрыт */
-                position: relative;
+                padding-bottom: 10px;
+
+                /* Центруем группу секций внутри окна */
+                display: flex;
+                justify-content: center;
             }
 
             .groups-container {
                 display: flex;
                 flex-direction: row;
-                /* ВАЖНО: flex-start, чтобы начало было слева и скролл работал */
-                justify-content: flex-start;
-                align-items: flex-start;
-                flex-wrap: nowrap;
-                padding: 5px 5px 20px 5px; /* Отступ снизу для скроллбара */
+                gap: 15px;
+                align-items: stretch; /* Растягиваем все карточки на одну высоту */
                 height: 100%; /* На всю высоту родителя */
             }
 
             .info-group {
                 display: flex;
                 flex-direction: row;
-                align-items: flex-start;
                 flex-shrink: 0; /* Запрещаем сжимать карточки! */
-                margin-right: 20px;
                 border-radius: 8px;
                 background: #f9f9f9;
                 border-left: 5px solid #ddd;
-                height: 90%; /* Почти на всю высоту контейнера */
-                overflow-y: auto; /* Скролл внутри карточки, если текста много */
+
+                transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+                overflow: hidden;
             }
 
             .info-group.basic { border-left-color: #2196F3; background: #E3F2FD; }
@@ -280,78 +278,102 @@
 
             /* Свернутое состояние */
             .info-group.collapsed {
-                width: 40px; /* Фиксированная ширина */
-                overflow: hidden;
+                width: 45px;
+                min-width: 45px;
+                cursor: pointer;
             }
 
+            /* --- ЗАГОЛОВОК СЕКЦИИ (Вертикальная полоска) --- */
             .group-title {
-                cursor: pointer;
-                writing-mode: vertical-lr;
-                text-orientation: upright;
-                font-size: 14px;
-                font-weight: bold;
-                padding: 15px 10px;
+                writing-mode: vertical-lr; /* Вертикальный текст */
+                text-orientation: upright; /* Буквы прямо */
+
+                width: 45px; /* Ширина полоски */
                 margin: 0;
-                color: #444;
-                text-align: center;
-                border-radius: 4px 0 0 4px;
-                height: 100%; /* На всю высоту карточки */
+                color: #555;
+                font-weight: bold;
+                font-size: 13px;
+                user-select: none;
+                cursor: pointer;
+
+                /* Flex для управления положением текста */
                 display: flex;
-                align-items: center;
-                justify-content: center;
+                align-items: center; /* Центр по горизонтали (ширине полоски) */
+
+                /* --- СОСТОЯНИЕ: РАЗВЕРНУТО (Текст наверху) --- */
+                justify-content: flex-start;
+                padding-top: 25px;
+
+                transition: background 0.2s;
             }
 
             .group-title:hover {
                 background-color: rgba(0,0,0,0.05);
             }
 
-            .group-content {
-                width: 250px; /* Фиксированная ширина контента */
-                padding: 15px;
-                transition: width 0.3s ease, padding 0.3s ease;
-                overflow: visible;
+            /* --- СОСТОЯНИЕ: СВЕРНУТО (Текст по центру) --- */
+            .info-group.collapsed .group-title {
+                justify-content: center;
+                padding-top: 0;
+                width: 100%;
             }
 
-            /* Когда свернуто */
+            /* --- КОНТЕНТ СЕКЦИИ --- */
+            .group-content {
+                width: 250px;
+                padding: 15px;
+                opacity: 1;
+                overflow-y: auto; /* Скролл текста, если не влезает */
+
+                transition: width 0.4s ease, padding 0.4s ease, opacity 0.3s ease;
+            }
+
+            /* Контент скрыт */
             .group-content.collapsed {
                 width: 0 !important;
                 padding: 0 !important;
+                opacity: 0;
                 overflow: hidden;
-                border: none;
             }
 
             .info-group p {
                 margin: 8px 0;
+                line-height: 1.4;
                 font-size: 14px;
-                line-height: 1.5;
             }
 
-            /* Стили специфики аллотропов */
+            /* Убираем лишние зеленые полоски внутри текста */
             .allo-specific {
-                border-left: 2px solid #4CAF50;
-                padding-left: 8px;
-                margin-left: -8px;
+                border: none;
+                padding: 0;
+                margin: 0;
             }
 
+            /* Крестик закрытия */
             .close {
                 position: absolute;
-                right: 20px;
-                top: 15px;
-                color: #aaa;
+                right: 15px;
+                top: 10px;
+                color: #999;
                 font-size: 28px;
                 font-weight: bold;
+                cursor: pointer;
                 z-index: 1001;
+                line-height: 1;
+            }
+            .close:hover { color: #333; }
+
+            /* Анимация появления модалки */
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
             }
 
-            .close:hover { color: black; cursor: pointer; }
-
-            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-            /* Кастомизация скроллбара */
-            #element-info::-webkit-scrollbar { height: 10px; }
-            #element-info::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 5px; }
-            #element-info::-webkit-scrollbar-thumb { background: #888; border-radius: 5px; }
-            #element-info::-webkit-scrollbar-thumb:hover { background: #555; }
+            /* Настройка скроллбара */
+            #element-info::-webkit-scrollbar { height: 8px; }
+            #element-info::-webkit-scrollbar-track { background: transparent; }
+            #element-info::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+            #element-info::-webkit-scrollbar-thumb:hover { background: #999; }
         </style>
 </head>
 <body>
